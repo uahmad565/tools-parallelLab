@@ -1,0 +1,32 @@
+# .NET
+Backend/bin/
+Backend/obj/
+Backend/*.user
+Backend/*.suo
+Backend/.vs/
+
+# React / Node
+frontend/node_modules/
+frontend/dist/
+frontend/.env
+frontend/.env.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Large test files
+large-sample-data.csv
+CsvGenerator/
+
+# Logs
+*.log
+npm-debug.log*
+

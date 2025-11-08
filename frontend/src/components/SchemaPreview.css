@@ -1,0 +1,166 @@
+.schema-preview {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.preview-header {
+  padding: 1.5rem;
+  border-bottom: 2px solid #f0f0f0;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.preview-title h3 {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.stats {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.stat {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.stat strong {
+  color: #667eea;
+  font-weight: 700;
+}
+
+.preview-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.action-btn {
+  padding: 0.6rem 1.2rem;
+  background: #667eea;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.action-btn:hover {
+  background: #5568d3;
+  transform: translateY(-1px);
+}
+
+.action-btn:active {
+  transform: translateY(0);
+}
+
+.column-info {
+  padding: 1.5rem;
+  background: #f8f9fa;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.column-info h4 {
+  font-size: 1.1rem;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.columns-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 0.75rem;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.column-card {
+  background: white;
+  padding: 0.75rem;
+  border-radius: 6px;
+  border: 1px solid #e0e0e0;
+}
+
+.column-name {
+  font-weight: 600;
+  color: #333;
+  font-size: 0.9rem;
+  margin-bottom: 0.25rem;
+}
+
+.column-type {
+  color: #667eea;
+  font-family: 'Courier New', monospace;
+  font-size: 0.85rem;
+  margin-bottom: 0.5rem;
+}
+
+.column-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: #999;
+}
+
+.confidence {
+  color: #4caf50;
+  font-weight: 500;
+}
+
+.code-container {
+  padding: 1.5rem;
+  background: #1e1e1e;
+  overflow-x: auto;
+  max-height: 600px;
+  overflow-y: auto;
+}
+
+.code-container pre {
+  margin: 0;
+  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.code-container code {
+  color: #d4d4d4;
+  background: transparent;
+  padding: 0;
+}
+
+/* Syntax highlighting for C# */
+.code-container pre {
+  color: #d4d4d4;
+}
+
+/* Scrollbar styling */
+.columns-grid::-webkit-scrollbar,
+.code-container::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.columns-grid::-webkit-scrollbar-track,
+.code-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.columns-grid::-webkit-scrollbar-thumb,
+.code-container::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+.columns-grid::-webkit-scrollbar-thumb:hover,
+.code-container::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
