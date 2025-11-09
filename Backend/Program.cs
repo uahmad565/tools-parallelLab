@@ -34,12 +34,18 @@ builder.Services.AddScoped<CsvParserService>();
 builder.Services.AddScoped<SchemaGeneratorService>();
 
 // Configure CORS for React frontend (with SignalR support)
+// Allows frontend on host machine to connect to backend in Docker container
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowReactApp",
         policy =>
         {
-            policy.WithOrigins("http://localhost:5173", "http://localhost:3000", "http://localhost:5193")
+            policy.WithOrigins(
+                    "http://localhost:5173",      // Vite dev server
+                    "http://localhost:3000",      // Alternative React port
+                    "http://localhost:5193",      // Backend (when not in Docker)
+                    "http://host.docker.internal:5173"  // Frontend from Docker perspective
+                  )
                   .AllowAnyHeader()
                   .AllowAnyMethod()
                   .AllowCredentials(); // Required for SignalR

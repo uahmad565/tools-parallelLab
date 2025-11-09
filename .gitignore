@@ -24,7 +24,17 @@ Thumbs.db
 
 # Large test files
 large-sample-data.csv
+huge-sample-data.csv
+massive-sample-data.csv
+xlarge-sample-data.csv
+medium-sample-data.csv
+small-sample-data.csv
+custom-*.csv
 CsvGenerator/
+
+# Docker
+.dockerignore
+docker-compose.override.yml
 
 # Logs
 *.log
