@@ -6,7 +6,8 @@ const API_BASE_URL = 'http://localhost:5193';
 export const analyzeCsv = async (
   file: File,
   options: SchemaGenerationOptions,
-  onProgress?: (progress: number) => void
+  onProgress?: (progress: number) => void,
+  connectionId?: string
 ): Promise<SchemaGenerationResult> => {
   const formData = new FormData();
   formData.append('file', file);
@@ -19,6 +20,10 @@ export const analyzeCsv = async (
   }
   formData.append('useRecords', String(options.useRecords || false));
   formData.append('includeDataAnnotations', String(options.includeDataAnnotations ?? true));
+  
+  if (connectionId) {
+    formData.append('connectionId', connectionId);
+  }
 
   const response = await axios.post<SchemaGenerationResult>(
     `${API_BASE_URL}/api/csv/analyze`,

@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using System.Diagnostics;
 using Backend.Models;
 using Backend.Services;
+using Backend.Hubs;
 
 namespace Backend.Controllers;
 
@@ -12,15 +14,18 @@ public class CsvController : ControllerBase
     private readonly CsvParserService _csvParser;
     private readonly SchemaGeneratorService _schemaGenerator;
     private readonly ILogger<CsvController> _logger;
+    private readonly IHubContext<ProgressHub> _hubContext;
 
     public CsvController(
         CsvParserService csvParser,
         SchemaGeneratorService schemaGenerator,
-        ILogger<CsvController> logger)
+        ILogger<CsvController> logger,
+        IHubContext<ProgressHub> hubContext)
     {
         _csvParser = csvParser;
         _schemaGenerator = schemaGenerator;
         _logger = logger;
+        _hubContext = hubContext;
     }
 
     [HttpPost("analyze")]
@@ -31,7 +36,8 @@ public class CsvController : ControllerBase
         [FromForm] string? className = null,
         [FromForm] string? namespaceName = null,
         [FromForm] bool useRecords = false,
-        [FromForm] bool includeDataAnnotations = true)
+        [FromForm] bool includeDataAnnotations = true,
+        [FromForm] string? connectionId = null)
     {
         try
         {
@@ -43,6 +49,19 @@ public class CsvController : ControllerBase
             if (!file.FileName.EndsWith(".csv", StringComparison.OrdinalIgnoreCase))
             {
                 return BadRequest(new { error = "File must be a CSV" });
+            }
+
+            // Progress callback for SignalR
+            Func<string, int, Task>? progressCallback = null;
+            if (!string.IsNullOrEmpty(connectionId))
+            {
+                progressCallback = async (message, percentage) =>
+                {
+                    await _hubContext.Clients.Client(connectionId)
+                        .SendAsync("ReceiveProgress", message, percentage);
+                };
+                
+                await progressCallback("Starting CSV analysis...", 0);
             }
 
             var stopwatch = Stopwatch.StartNew();
@@ -61,7 +80,7 @@ public class CsvController : ControllerBase
             
             await using (var stream = file.OpenReadStream())
             {
-                columnAnalyses = await _csvParser.AnalyzeCsvAsync(stream, options);
+                columnAnalyses = await _csvParser.AnalyzeCsvAsync(stream, options, null, progressCallback);
             }
 
             // Count total rows
@@ -76,7 +95,13 @@ public class CsvController : ControllerBase
             }
 
             // Generate schema
+            if (progressCallback != null)
+                await progressCallback("Generating C# schema code...", 90);
+            
             var generatedCode = _schemaGenerator.GenerateSchema(columnAnalyses, options);
+            
+            if (progressCallback != null)
+                await progressCallback("Schema generation complete!", 100);
 
             stopwatch.Stop();
 

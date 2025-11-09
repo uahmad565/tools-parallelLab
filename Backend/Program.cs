@@ -8,6 +8,9 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// Add SignalR for real-time progress updates
+builder.Services.AddSignalR();
+
 // Configure Kestrel for large file uploads (up to 5GB)
 // With smart sampling, we can handle huge files because we only analyze ~10K rows
 builder.Services.Configure<Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions>(options =>
@@ -30,7 +33,7 @@ builder.Services.AddScoped<TypeInferenceService>();
 builder.Services.AddScoped<CsvParserService>();
 builder.Services.AddScoped<SchemaGeneratorService>();
 
-// Configure CORS for React frontend
+// Configure CORS for React frontend (with SignalR support)
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowReactApp",
@@ -38,7 +41,8 @@ builder.Services.AddCors(options =>
         {
             policy.WithOrigins("http://localhost:5173", "http://localhost:3000", "http://localhost:5193")
                   .AllowAnyHeader()
-                  .AllowAnyMethod();
+                  .AllowAnyMethod()
+                  .AllowCredentials(); // Required for SignalR
         });
 });
 
@@ -56,5 +60,6 @@ app.UseCors("AllowReactApp");
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapHub<Backend.Hubs.ProgressHub>("/progressHub");
 //app.MapOpenApi();
 app.Run();

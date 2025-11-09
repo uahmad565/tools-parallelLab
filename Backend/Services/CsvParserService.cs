@@ -18,7 +18,8 @@ public class CsvParserService
     public async Task<Dictionary<string, CsvColumnAnalysis>> AnalyzeCsvAsync(
         Stream csvStream, 
         SchemaGenerationOptions options,
-        IProgress<int>? progress = null)
+        IProgress<int>? progress = null,
+        Func<string, int, Task>? progressCallback = null)
     {
         var config = new CsvConfiguration(CultureInfo.InvariantCulture)
         {
@@ -31,6 +32,9 @@ public class CsvParserService
         using var csv = new CsvReader(reader, config);
 
         // Read header
+        if (progressCallback != null)
+            await progressCallback("Reading CSV header...", 5);
+        
         await csv.ReadAsync();
         csv.ReadHeader();
         var headers = csv.HeaderRecord ?? Array.Empty<string>();
@@ -41,9 +45,18 @@ public class CsvParserService
             h => new CsvColumnAnalysis { ColumnName = h }
         );
 
+        if (progressCallback != null)
+            await progressCallback($"Found {headers.Length} columns", 10);
+
         // Count total rows (quick pass)
+        if (progressCallback != null)
+            await progressCallback("Counting total rows...", 15);
+        
         var totalRows = await CountRowsAsync(csvStream);
         csvStream.Position = 0; // Reset stream
+        
+        if (progressCallback != null)
+            await progressCallback($"Total rows: {totalRows:N0}", 20);
 
         // Reinitialize reader after counting
         using var reader2 = new StreamReader(csvStream);
@@ -64,6 +77,14 @@ public class CsvParserService
 
         int currentRow = 0;
         int analyzedRows = 0;
+
+        if (progressCallback != null)
+        {
+            var samplingMsg = useSmartSampling 
+                ? $"Analyzing with smart sampling (~{rowsToAnalyze:N0} rows)" 
+                : $"Analyzing all {totalRows:N0} rows";
+            await progressCallback(samplingMsg, 25);
+        }
 
         // Analyze rows
         while (await csv2.ReadAsync())
@@ -91,6 +112,12 @@ public class CsvParserService
             {
                 var progressPercent = (int)((double)currentRow / totalRows * 100);
                 progress?.Report(progressPercent);
+                
+                if (progressCallback != null && currentRow % 10000 == 0)
+                {
+                    var percent = 25 + (int)((double)currentRow / totalRows * 50); // 25-75%
+                    await progressCallback($"Analyzing row {currentRow:N0} of {totalRows:N0}...", percent);
+                }
             }
 
             // Safety limit
@@ -98,11 +125,17 @@ public class CsvParserService
                 break;
         }
 
+        if (progressCallback != null)
+            await progressCallback("Inferring data types...", 80);
+
         // Infer types for all columns
         foreach (var analysis in columnAnalyses.Values)
         {
             _typeInference.InferType(analysis);
         }
+
+        if (progressCallback != null)
+            await progressCallback("CSV analysis complete!", 85);
 
         progress?.Report(100);
 
