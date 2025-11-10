@@ -60,7 +60,7 @@ public class CsvController : ControllerBase
                     await _hubContext.Clients.Client(connectionId)
                         .SendAsync("ReceiveProgress", message, percentage);
                 };
-                
+
                 await progressCallback("Starting CSV analysis...", 0);
             }
 
@@ -75,14 +75,6 @@ public class CsvController : ControllerBase
                 MaxRowsToAnalyze = 10000
             };
 
-            // Analyze CSV
-            Dictionary<string, CsvColumnAnalysis> columnAnalyses;
-            
-            await using (var stream = file.OpenReadStream())
-            {
-                columnAnalyses = await _csvParser.AnalyzeCsvAsync(stream, options, null, progressCallback);
-            }
-
             // Count total rows
             int totalRows = 0;
             await using (var stream = file.OpenReadStream())
@@ -94,12 +86,22 @@ public class CsvController : ControllerBase
                 totalRows = Math.Max(0, totalRows);
             }
 
+            // Analyze CSV
+            Dictionary<string, CsvColumnAnalysis> columnAnalyses;
+
+            await using (var stream = file.OpenReadStream())
+            {
+                columnAnalyses = await _csvParser.AnalyzeCsvAsync(stream, options, totalRows, null, progressCallback);
+            }
+
+
+
             // Generate schema
             if (progressCallback != null)
                 await progressCallback("Generating C# schema code...", 90);
-            
+
             var generatedCode = _schemaGenerator.GenerateSchema(columnAnalyses, options);
-            
+
             if (progressCallback != null)
                 await progressCallback("Schema generation complete!", 100);
 

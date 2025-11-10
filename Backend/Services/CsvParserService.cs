@@ -18,6 +18,7 @@ public class CsvParserService
     public async Task<Dictionary<string, CsvColumnAnalysis>> AnalyzeCsvAsync(
         Stream csvStream, 
         SchemaGenerationOptions options,
+        int totalRows,
         IProgress<int>? progress = null,
         Func<string, int, Task>? progressCallback = null)
     {
@@ -52,7 +53,7 @@ public class CsvParserService
         if (progressCallback != null)
             await progressCallback("Counting total rows...", 15);
         
-        var totalRows = await CountRowsAsync(csvStream);
+        //var totalRows1 = await CountRowsAsync(csvStream);
         csvStream.Position = 0; // Reset stream
         
         if (progressCallback != null)

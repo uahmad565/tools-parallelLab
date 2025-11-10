@@ -1,13 +1,17 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import FileUploader from './components/FileUploader';
 import ConfigurationPanel from './components/ConfigurationPanel';
 import SchemaPreview from './components/SchemaPreview';
+import About from './components/About';
 import { analyzeCsv } from './api';
 import { SchemaGenerationResult, SchemaGenerationOptions } from './types';
 import { useSignalR } from './hooks/useSignalR';
 import './App.css';
 
+type Page = 'tool' | 'about';
+
 function App() {
+  const [currentPage, setCurrentPage] = useState<Page>('tool');
   const [file, setFile] = useState<File | null>(null);
   const [options, setOptions] = useState<SchemaGenerationOptions>({
     className: 'CsvData',
@@ -21,21 +25,12 @@ function App() {
   const [result, setResult] = useState<SchemaGenerationResult | null>(null);
   const [error, setError] = useState<string | null>(null);
   
-  const { connection, isConnected, progress: signalRProgress, startConnection, stopConnection, resetProgress, connectionId } = useSignalR();
+  const { connection, progress: signalRProgress, startConnection, stopConnection, resetProgress } = useSignalR();
 
   const handleFileSelect = (selectedFile: File) => {
     setFile(selectedFile);
     setResult(null);
     setError(null);
-  };
-
-  const estimateProcessingTime = (fileSize: number): number => {
-    // Estimate based on file size
-    // Small files: ~0.5s, Large files: ~3s
-    const sizeMB = fileSize / (1024 * 1024);
-    if (sizeMB < 50) return 1;
-    if (sizeMB < 500) return 2;
-    return 3;
   };
 
   const handleAnalyze = async () => {
@@ -55,7 +50,7 @@ function App() {
       await new Promise(resolve => setTimeout(resolve, 100));
       
       // Get the connectionId after connection is established
-      const currentConnectionId = connection?.connectionId;
+      const currentConnectionId = connection?.connectionId || undefined;
       
       console.log('SignalR Connection ID:', currentConnectionId);
       
@@ -76,8 +71,45 @@ function App() {
     }
   };
 
+  if (currentPage === 'about') {
+    return (
+      <div className="app">
+        <nav className="main-nav">
+          <div className="nav-brand" onClick={() => setCurrentPage('tool')}>
+            <span className="nav-logo">🔨</span>
+            <span className="nav-title">DevToolsmith</span>
+          </div>
+          <div className="nav-links">
+            <button className="nav-link" onClick={() => setCurrentPage('tool')}>
+              🛠️ Tools
+            </button>
+            <button className="nav-link active" onClick={() => setCurrentPage('about')}>
+              ℹ️ About
+            </button>
+          </div>
+        </nav>
+        <About />
+      </div>
+    );
+  }
+
   return (
     <div className="app">
+      <nav className="main-nav">
+        <div className="nav-brand">
+          <span className="nav-logo">🔨</span>
+          <span className="nav-title">DevToolsmith</span>
+        </div>
+        <div className="nav-links">
+          <button className="nav-link active" onClick={() => setCurrentPage('tool')}>
+            🛠️ Tools
+          </button>
+          <button className="nav-link" onClick={() => setCurrentPage('about')}>
+            ℹ️ About
+          </button>
+        </div>
+      </nav>
+
       <header className="app-header">
         <h1>📊 CSV to C# Schema Generator</h1>
         <p>Upload your CSV file and get a perfect C# class schema instantly</p>
