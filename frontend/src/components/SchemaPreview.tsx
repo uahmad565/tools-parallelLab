@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { SchemaGenerationResult } from '../types';
 import './SchemaPreview.css';
 
@@ -6,10 +7,18 @@ interface SchemaPreviewProps {
   fileName: string;
 }
 
+type CodeTab = 'main' | 'classmap';
+
 function SchemaPreview({ result, fileName }: SchemaPreviewProps) {
+  const [activeTab, setActiveTab] = useState<CodeTab>('main');
+
+  const getCurrentCode = () => {
+    return activeTab === 'main' ? result.generatedCode : result.classMapCode;
+  };
+
   const handleCopy = async () => {
     try {
-      await navigator.clipboard.writeText(result.generatedCode);
+      await navigator.clipboard.writeText(getCurrentCode());
       alert('Code copied to clipboard!');
     } catch (err) {
       console.error('Failed to copy:', err);
@@ -17,7 +26,22 @@ function SchemaPreview({ result, fileName }: SchemaPreviewProps) {
   };
 
   const handleDownload = () => {
-    const blob = new Blob([result.generatedCode], { type: 'text/plain' });
+    const code = getCurrentCode();
+    const extension = activeTab === 'main' ? '.cs' : 'ClassMap.cs';
+    const blob = new Blob([code], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = fileName.replace('.csv', extension);
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
+
+  const handleDownloadAll = () => {
+    const combinedCode = `${result.generatedCode}\n\n${result.classMapCode}`;
+    const blob = new Blob([combinedCode], { type: 'text/plain' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
@@ -49,8 +73,11 @@ function SchemaPreview({ result, fileName }: SchemaPreviewProps) {
           <button className="action-btn" onClick={handleCopy} title="Copy to clipboard">
             📋 Copy
           </button>
-          <button className="action-btn" onClick={handleDownload} title="Download as .cs file">
+          <button className="action-btn" onClick={handleDownload} title="Download current class">
             💾 Download
+          </button>
+          <button className="action-btn" onClick={handleDownloadAll} title="Download both classes">
+            📦 Download All
           </button>
         </div>
       </div>
@@ -77,9 +104,24 @@ function SchemaPreview({ result, fileName }: SchemaPreviewProps) {
         </div>
       </div>
 
+      <div className="code-tabs">
+        <button
+          className={`code-tab ${activeTab === 'main' ? 'active' : ''}`}
+          onClick={() => setActiveTab('main')}
+        >
+          📄 Main Class
+        </button>
+        <button
+          className={`code-tab ${activeTab === 'classmap' ? 'active' : ''}`}
+          onClick={() => setActiveTab('classmap')}
+        >
+          🗺️ ClassMap
+        </button>
+      </div>
+
       <div className="code-container">
         <pre>
-          <code className="csharp">{result.generatedCode}</code>
+          <code className="csharp">{getCurrentCode()}</code>
         </pre>
       </div>
     </div>

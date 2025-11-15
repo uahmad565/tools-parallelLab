@@ -13,7 +13,17 @@ public class SchemaGeneratorService
         _typeInference = typeInference;
     }
 
-    public string GenerateSchema(
+    public (string MainClass, string ClassMap) GenerateSchema(
+        Dictionary<string, CsvColumnAnalysis> columnAnalyses,
+        SchemaGenerationOptions options)
+    {
+        var mainClass = GenerateMainClass(columnAnalyses, options);
+        var classMap = GenerateClassMap(columnAnalyses, options);
+        
+        return (mainClass, classMap);
+    }
+
+    private string GenerateMainClass(
         Dictionary<string, CsvColumnAnalysis> columnAnalyses,
         SchemaGenerationOptions options)
     {
@@ -83,6 +93,45 @@ public class SchemaGeneratorService
             sb.AppendLine();
         }
 
+        sb.AppendLine("}");
+
+        return sb.ToString();
+    }
+
+    private string GenerateClassMap(
+        Dictionary<string, CsvColumnAnalysis> columnAnalyses,
+        SchemaGenerationOptions options)
+    {
+        var sb = new StringBuilder();
+
+        // Add usings
+        sb.AppendLine("using CsvHelper.Configuration;");
+        sb.AppendLine();
+
+        // Add namespace
+        sb.AppendLine($"namespace {options.Namespace};");
+        sb.AppendLine();
+
+        // ClassMap class name
+        var classMapName = $"{options.ClassName}ClassMap";
+        
+        sb.AppendLine($"public class {classMapName} : ClassMap<{options.ClassName}>");
+        sb.AppendLine("{");
+        sb.AppendLine($"    public {classMapName}()");
+        sb.AppendLine("    {");
+
+        // Generate mappings
+        foreach (var kvp in columnAnalyses)
+        {
+            var columnName = kvp.Key;
+            var propertyName = ToPascalCase(columnName);
+            
+            // Only add mapping if column name differs from property name
+            // or if we want to be explicit about all mappings
+            sb.AppendLine($"        Map(m => m.{propertyName}).Name(\"{columnName}\");");
+        }
+
+        sb.AppendLine("    }");
         sb.AppendLine("}");
 
         return sb.ToString();

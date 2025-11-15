@@ -115,6 +115,39 @@
   font-weight: 500;
 }
 
+.code-tabs {
+  display: flex;
+  background: #f8f9fa;
+  border-bottom: 2px solid #e0e0e0;
+  padding: 0;
+  margin: 0;
+}
+
+.code-tab {
+  flex: 1;
+  padding: 1rem 1.5rem;
+  background: transparent;
+  border: none;
+  border-bottom: 3px solid transparent;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #666;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.code-tab:hover {
+  background: #f0f0f0;
+  color: #667eea;
+}
+
+.code-tab.active {
+  background: white;
+  color: #667eea;
+  border-bottom-color: #667eea;
+}
+
 .code-container {
   padding: 1.5rem;
   background: #1e1e1e;

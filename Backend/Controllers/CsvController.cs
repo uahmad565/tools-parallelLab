@@ -99,9 +99,9 @@ public class CsvController : ControllerBase
             // Generate schema
             if (progressCallback != null)
                 await progressCallback("Generating C# schema code...", 90);
-
-            var generatedCode = _schemaGenerator.GenerateSchema(columnAnalyses, options);
-
+            
+            var (mainClass, classMap) = _schemaGenerator.GenerateSchema(columnAnalyses, options);
+            
             if (progressCallback != null)
                 await progressCallback("Schema generation complete!", 100);
 
@@ -109,7 +109,8 @@ public class CsvController : ControllerBase
 
             var result = new SchemaGenerationResult
             {
-                GeneratedCode = generatedCode,
+                GeneratedCode = mainClass,
+                ClassMapCode = classMap,
                 TotalRows = totalRows,
                 AnalyzedRows = columnAnalyses.Values.FirstOrDefault()?.TotalValues ?? 0,
                 ProcessingTimeMs = stopwatch.Elapsed.TotalMilliseconds,

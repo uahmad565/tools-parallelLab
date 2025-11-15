@@ -9,6 +9,7 @@ export interface ColumnInfo {
 
 export interface SchemaGenerationResult {
   generatedCode: string;
+  classMapCode: string;
   totalRows: number;
   analyzedRows: number;
   columns: ColumnInfo[];
