@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import AdSense from '../components/AdSense';
 import './Home.css';
 
 function Home() {
@@ -79,6 +80,8 @@ function Home() {
           </Link>
         </div>
       </section>
+
+      <AdSense format="horizontal" className="home-ad-bottom" />
 
       <section className="cta-section">
         <div className="cta-container">

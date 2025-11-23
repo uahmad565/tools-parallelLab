@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import AdSense from '../components/AdSense';
 import './AllTools.css';
 
 interface Tool {
@@ -142,6 +143,8 @@ function AllTools() {
           </div>
         ))}
       </div>
+
+      <AdSense format="horizontal" className="tools-ad" />
 
       <div className="tools-footer">
         <div className="footer-cta">
