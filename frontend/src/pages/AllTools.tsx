@@ -147,10 +147,10 @@ function AllTools() {
       <AdSense format="horizontal" className="tools-ad" />
 
       <div className="tools-footer">
-        <div className="footer-cta">
+        <div className="footer-suggestions">
           <h3>Have a tool idea?</h3>
           <p>We're always looking to add more productivity tools. Share your suggestions!</p>
-          <a href="mailto:hello@devtoolsmith.dev" className="cta-button">
+          <a href="mailto:uahmad565565@gmail.com" className="cta-button">
             Suggest a Tool
           </a>
         </div>
