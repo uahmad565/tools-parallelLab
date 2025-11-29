@@ -8,7 +8,7 @@ function Home() {
       <section className="hero-section">
         <div className="hero-content">
           <div className="hero-logo">🔨</div>
-          <h1 className="hero-title">DevToolsmith</h1>
+          <h1 className="hero-title">Parallel Lab Tools</h1>
           <p className="hero-subtitle">Forging Productivity Tools for Modern Software Engineers</p>
           <div className="hero-actions">
             <Link to="/tools" className="hero-btn primary">
@@ -23,7 +23,7 @@ function Home() {
 
       <section className="features-section">
         <div className="features-container">
-          <h2>Why Developers Choose DevToolsmith</h2>
+          <h2>Why Developers Choose Parallel Lab Tools</h2>
           <div className="features-grid">
             <div className="feature-card">
               <div className="feature-icon">⚡</div>

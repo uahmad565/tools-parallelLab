@@ -10,7 +10,7 @@ function PrivacyPolicy() {
         <section className="privacy-section">
           <h2>1. Introduction</h2>
           <p>
-            Welcome to DevToolsmith. We are committed to protecting your privacy and ensuring 
+            Welcome to Parallel Lab Tools. We are committed to protecting your privacy and ensuring 
             transparency about how we handle your data. This Privacy Policy explains our practices 
             regarding the collection, use, and disclosure of information.
           </p>
@@ -19,7 +19,7 @@ function PrivacyPolicy() {
         <section className="privacy-section">
           <h2>2. Data We Do NOT Collect</h2>
           <p>
-            DevToolsmith is built with privacy as a core principle. We want to be clear about what 
+            Parallel Lab Tools is built with privacy as a core principle. We want to be clear about what 
             we DO NOT do:
           </p>
           <ul>
@@ -98,7 +98,7 @@ function PrivacyPolicy() {
         <section className="privacy-section">
           <h2>7. Cookies and Tracking</h2>
           <p>
-            DevToolsmith does NOT use cookies for tracking. The only technical cookies used are:
+            Parallel Lab Tools does NOT use cookies for tracking. The only technical cookies used are:
           </p>
           <ul>
             <li><strong>Session cookies</strong> - For SignalR WebSocket connections (automatically deleted when you close the browser)</li>
@@ -109,7 +109,7 @@ function PrivacyPolicy() {
         <section className="privacy-section">
           <h2>8. Third-Party Services</h2>
           <p>
-            DevToolsmith is self-hosted and does not rely on third-party services for:
+            Parallel Lab Tools is self-hosted and does not rely on third-party services for:
           </p>
           <ul>
             <li>Analytics (we don't track you)</li>
@@ -134,7 +134,7 @@ function PrivacyPolicy() {
         <section className="privacy-section">
           <h2>10. Children's Privacy</h2>
           <p>
-            DevToolsmith is designed for professional software developers. We do not knowingly 
+            Parallel Lab Tools is designed for professional software developers. We do not knowingly 
             collect information from anyone under the age of 13. If you believe we have inadvertently 
             collected such information, please contact us immediately.
           </p>
@@ -144,7 +144,7 @@ function PrivacyPolicy() {
           <h2>11. Changes to This Policy</h2>
           <p>
             We may update this Privacy Policy from time to time. Changes will be posted on this page 
-            with an updated "Last Updated" date. Continued use of DevToolsmith after changes constitutes 
+            with an updated "Last Updated" date. Continued use of Parallel Lab Tools after changes constitutes 
             acceptance of the updated policy.
           </p>
         </section>
@@ -166,7 +166,7 @@ function PrivacyPolicy() {
           <p>
             <strong>Your privacy is paramount.</strong> We process your files in real-time, generate schemas, 
             and immediately delete everything. No storage, no tracking, no data collection. What happens 
-            in DevToolsmith, stays in DevToolsmith - for about 2 seconds, then it's gone forever.
+            in Parallel Lab Tools, stays in Parallel Lab Tools - for about 2 seconds, then it's gone forever.
           </p>
         </div>
       </div>

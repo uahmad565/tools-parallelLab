@@ -6,7 +6,7 @@ function About() {
       <div className="about-hero">
         <div className="logo-container">
           <span className="logo-icon">🔨</span>
-          <h1 className="brand-name">DevToolsmith</h1>
+          <h1 className="brand-name">ParallelLabTools</h1>
         </div>
         <p className="tagline">Forging Productivity Tools for Modern Software Engineers</p>
       </div>
@@ -15,7 +15,7 @@ function About() {
         <section className="about-section">
           <h2>🎯 Our Mission</h2>
           <p>
-            DevToolsmith is dedicated to creating powerful, efficient tools that save developers time 
+            Parallel Lab Tools is dedicated to creating powerful, efficient tools that save developers time 
             and eliminate repetitive tasks. We believe every minute saved on mundane work is a minute 
             gained for innovation and creativity.
           </p>
@@ -43,7 +43,7 @@ function About() {
         </section>
 
         <section className="about-section">
-          <h2>💡 Why DevToolsmith?</h2>
+          <h2>💡 Why Parallel Lab Tools?</h2>
           <div className="features-grid">
             <div className="feature-box">
               <h3>⚡ Lightning Fast</h3>
@@ -210,13 +210,13 @@ function About() {
           <div className="footer-content">
             <div className="footer-brand">
               <span className="logo-icon">🔨</span>
-              <span className="brand-name-small">DevToolsmith</span>
+              <span className="brand-name-small">ParallelLabTools</span>
             </div>
             <p className="footer-tagline">
               Crafting Tools that Make Developers' Lives Easier
             </p>
             <p className="footer-copyright">
-              © 2024 DevToolsmith. Built with ❤️ for the developer community.
+              © 2024 Parallel Lab Tools. Built with ❤️ for the developer community.
             </p>
           </div>
         </section>

@@ -13,7 +13,7 @@ function Navbar() {
       <div className="navbar-container">
         <Link to="/" className="navbar-brand">
           <span className="brand-logo">🔨</span>
-          <span className="brand-name">DevToolsmith</span>
+          <span className="brand-name">ParallelLabTools</span>
         </Link>
 
         <div className="navbar-menu">

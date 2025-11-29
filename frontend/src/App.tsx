@@ -24,7 +24,7 @@ function App() {
         
         <footer className="app-footer">
           <div className="footer-content">
-            <p>© 2024 DevToolsmith - Forging Tools for Developers</p>
+            <p>© 2024 Parallel Lab Tools - Forging Tools for Developers</p>
             <div className="footer-links">
               <a href="/privacy">Privacy Policy</a>
               <span className="separator">•</span>
