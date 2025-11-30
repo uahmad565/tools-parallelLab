@@ -5,6 +5,7 @@
 .hero-section {
   padding: 4rem 2rem;
   text-align: center;
+  color: white;
 }
 
 .hero-content {
@@ -27,21 +28,18 @@
 .hero-title {
   font-size: 4rem;
   font-weight: 900;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #ffffff;
   margin-bottom: 1rem;
   letter-spacing: -1px;
-  text-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+  text-shadow: 0 12px 32px rgba(3, 5, 24, 0.65);
 }
 
 .hero-subtitle {
   font-size: 1.5rem;
-  color: white;
+  color: rgba(255, 255, 255, 0.92);
   font-weight: 500;
   margin-bottom: 2.5rem;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
 }
 
 .hero-actions {
