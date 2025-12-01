@@ -24,6 +24,7 @@ public class Function1
         string str = "";
         try
         {
+            str += "\n " + req.HttpContext.Connection.RemoteIpAddress?.ToString();
             str = _config["apikey"] ?? "Not Found";
         }
         catch (System.Exception ex)

@@ -1,4 +1,5 @@
 using Backend.Services;
+using Backend.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -33,6 +34,9 @@ builder.Services.AddScoped<TypeInferenceService>();
 builder.Services.AddScoped<CsvParserService>();
 builder.Services.AddScoped<SchemaGeneratorService>();
 
+// Configure rate limiting
+RateLimitPolicy.ConfigureRateLimitPolicy(builder.Services, builder.Configuration);
+
 // Configure CORS for React frontend (with SignalR support)
 // Allows frontend on host machine to connect to backend in Docker container
 builder.Services.AddCors(options =>
@@ -40,12 +44,22 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowReactApp",
         policy =>
         {
-            policy.WithOrigins(
-                    "http://localhost:5173",      // Vite dev server
-                    "http://localhost:3000",      // Alternative React port
-                    "http://localhost:5193",      // Backend (when not in Docker)
-                    "http://host.docker.internal:5173"  // Frontend from Docker perspective
-                  )
+            var allowedOrigins = new List<string>
+            {
+                "http://localhost:5173",      // Vite dev server
+                "http://localhost:3000",      // Alternative React port
+                "http://localhost:5193",      // Backend (when not in Docker)
+                "http://host.docker.internal:5173"  // Frontend from Docker perspective
+            };
+            
+            // Add Azure Static Web App URL from configuration (if provided)
+            var azureStaticWebAppUrl = builder.Configuration["AzureStaticWebApp:Url"];
+            if (!string.IsNullOrWhiteSpace(azureStaticWebAppUrl))
+            {
+                allowedOrigins.Add(azureStaticWebAppUrl);
+            }
+            
+            policy.WithOrigins(allowedOrigins.ToArray())
                   .AllowAnyHeader()
                   .AllowAnyMethod()
                   .AllowCredentials(); // Required for SignalR
@@ -61,11 +75,17 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+// Apply rate limiting middleware (before CORS)
+app.UseRateLimiter();
+
 app.UseCors("AllowReactApp");
 
 app.UseAuthorization();
 
-app.MapControllers();
+// Apply rate limiting to all API controllers
+app.MapControllers()
+   .RequireRateLimiting("ApiRateLimitPolicy");
+   
 app.MapHub<Backend.Hubs.ProgressHub>("/progressHub");
 //app.MapOpenApi();
 app.Run();
