@@ -1,7 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 import * as signalR from '@microsoft/signalr';
-
-const API_BASE_URL = 'http://localhost:5193';
+import { config } from '../config';
 
 export interface ProgressUpdate {
   message: string;
@@ -16,7 +15,7 @@ export const useSignalR = () => {
 
   useEffect(() => {
     const newConnection = new signalR.HubConnectionBuilder()
-      .withUrl(`${API_BASE_URL}/progressHub`)
+      .withUrl(`${config.apiBaseUrl}/progressHub`)
       .withAutomaticReconnect()
       .build();
 

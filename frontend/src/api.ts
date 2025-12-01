@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { SchemaGenerationResult, SchemaGenerationOptions } from './types';
-
-const API_BASE_URL = 'http://localhost:5193';
+import { config } from './config';
 
 export const analyzeCsv = async (
   file: File,
@@ -26,7 +25,7 @@ export const analyzeCsv = async (
   }
 
   const response = await axios.post<SchemaGenerationResult>(
-    `${API_BASE_URL}/api/csv/analyze`,
+    `${config.apiBaseUrl}/api/csv/analyze`,
     formData,
     {
       headers: {
