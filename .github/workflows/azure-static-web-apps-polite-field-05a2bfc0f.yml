@@ -16,6 +16,8 @@ jobs:
     name: Build and Deploy Job
     steps:
       - uses: actions/checkout@v3
+        env:
+          VITE_API_BASE_URL: ${{ secrets.VITE_API_BASE_URL }}
         with:
           submodules: true
           lfs: false
@@ -44,4 +46,5 @@ jobs:
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_POLITE_FIELD_05A2BFC0F }}
           action: "close"
+
 
