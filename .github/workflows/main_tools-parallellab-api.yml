@@ -36,14 +36,6 @@ jobs:
         with:
           name: .net-app
           path: ${{ github.workspace }}/publish
-      - name: Show resolved DOTNET_ROOT path
-        run: |
-          echo "DOTNET_ROOT: $DOTNET_ROOT"
-          echo "Full publish path: $DOTNET_ROOT/myapp"
-          echo "Contents of DOTNET_ROOT:"
-          ls -la $DOTNET_ROOT
-          echo "Contents of publish folder:"
-          ls -la $DOTNET_ROOT/myapp
 
   deploy:
     runs-on: ubuntu-latest
@@ -75,5 +67,6 @@ jobs:
           package: ./publish
 
           
+
 
 
