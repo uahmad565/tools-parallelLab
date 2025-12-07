@@ -16,14 +16,14 @@ jobs:
     name: Build and Deploy Job
     steps:
       - uses: actions/checkout@v3
-        env:
-          VITE_API_BASE_URL: ${{ secrets.VITE_API_BASE_URL }}
         with:
           submodules: true
           lfs: false
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
+        env:
+          VITE_API_BASE_URL: ${{ secrets.VITE_API_BASE_URL }}
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_POLITE_FIELD_05A2BFC0F }}
           repo_token: ${{ secrets.GITHUB_TOKEN }} # Used for Github integrations (i.e. PR comments)
@@ -46,5 +46,6 @@ jobs:
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_POLITE_FIELD_05A2BFC0F }}
           action: "close"
+
 
 
