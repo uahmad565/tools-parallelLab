@@ -29,13 +29,13 @@ jobs:
 
       - name: dotnet publish
         working-directory: ./Backend
-        run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
+        run: dotnet publish -c Release -o ${{ github.workspace }}/publish
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: .net-app
-          path: ${{env.DOTNET_ROOT}}/myapp
+          path: ${{ github.workspace }}/publish
       - name: Show resolved DOTNET_ROOT path
         run: |
           echo "DOTNET_ROOT: $DOTNET_ROOT"
@@ -57,6 +57,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: .net-app
+          path: ./publish
       
       - name: Login to Azure
         uses: azure/login@v2
@@ -71,7 +72,8 @@ jobs:
         with:
           app-name: 'tools-parallellab-api'
           slot-name: 'Production'
-          package: .
+          package: ./publish
 
           
+
 
