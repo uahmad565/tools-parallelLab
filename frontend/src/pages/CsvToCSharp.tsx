@@ -2,6 +2,7 @@ import { useState } from 'react';
 import FileUploader from '../components/FileUploader';
 import ConfigurationPanel from '../components/ConfigurationPanel';
 import SchemaPreview from '../components/SchemaPreview';
+import Seo from '../components/Seo';
 import { analyzeCsv } from '../api';
 import { SchemaGenerationResult, SchemaGenerationOptions } from '../types';
 import { useSignalR } from '../hooks/useSignalR';
@@ -64,6 +65,13 @@ function CsvToCSharp() {
 
   return (
     <div className="csv-tool-page">
+      <Seo
+        title="CSV to C# Schema Generator | Parallel Lab Tools"
+        description="Transform CSV files into C# classes with smart type inference, nullable support, records, and schema preview."
+        path="/csv-to-csharp"
+        keywords="CSV to C#, C# schema generator, CSV schema inference"
+      />
+
       <header className="tool-header">
         <h1>📊 CSV to C# Schema Generator</h1>
         <p>Upload your CSV file and get a perfect C# class schema instantly</p>

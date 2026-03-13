@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import AdSense from '../components/AdSense';
+import Seo from '../components/Seo';
 import './AllTools.css';
 
 interface Tool {
@@ -13,6 +14,22 @@ interface Tool {
 }
 
 const tools: Tool[] = [
+  {
+    id: 'azure-practice-simulators',
+    name: 'Azure Practice Simulators',
+    description: 'Dedicated AZ-305 and AZ-700 practice routes with instant answer feedback, rationale review, and topic-based score summaries.',
+    icon: '🧠',
+    route: '/practice-simulators',
+    status: 'active',
+    features: [
+      'AZ-305 architecture practice',
+      'AZ-700 networking practice',
+      'Question-by-question feedback',
+      'Topic score breakdowns',
+      'Role-based landing pages',
+      'No login required'
+    ]
+  },
   {
     id: 'csv-to-csharp',
     name: 'CSV to C# Schema Generator',
@@ -104,6 +121,13 @@ const tools: Tool[] = [
 function AllTools() {
   return (
     <div className="all-tools-page">
+      <Seo
+        title="All Tools | Parallel Lab Tools"
+        description="Explore developer utilities and exam practice features from Parallel Lab Tools, including CSV to C# generation and Azure practice simulators."
+        path="/tools"
+        keywords="developer tools, Azure practice simulators, CSV to C#, productivity tools"
+      />
+
       <div className="tools-header">
         <h1>🛠️ All Tools</h1>
         <p>Professional productivity tools for modern software engineers</p>

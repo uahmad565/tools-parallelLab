@@ -3,6 +3,8 @@ import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import AllTools from './pages/AllTools';
 import CsvToCSharp from './pages/CsvToCSharp';
+import PracticeSimulators from './pages/PracticeSimulators';
+import ExamSimulatorPage from './pages/ExamSimulatorPage';
 import About from './components/About';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import './App.css';
@@ -17,6 +19,9 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/tools" element={<AllTools />} />
             <Route path="/csv-to-csharp" element={<CsvToCSharp />} />
+            <Route path="/practice-simulators" element={<PracticeSimulators />} />
+            <Route path="/az-305-practice-simulator" element={<ExamSimulatorPage examKey="az-305" />} />
+            <Route path="/az-700-practice-simulator" element={<ExamSimulatorPage examKey="az-700" />} />
             <Route path="/about" element={<About />} />
             <Route path="/privacy" element={<PrivacyPolicy />} />
           </Routes>

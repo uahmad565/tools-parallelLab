@@ -1,8 +1,16 @@
 import './PrivacyPolicy.css';
+import Seo from '../components/Seo';
 
 function PrivacyPolicy() {
   return (
     <div className="privacy-page">
+      <Seo
+        title="Privacy Policy | Parallel Lab Tools"
+        description="Read the Privacy Policy for Parallel Lab Tools and understand how file processing and simulator usage data are handled."
+        path="/privacy"
+        keywords="privacy policy, Parallel Lab Tools privacy"
+      />
+
       <div className="privacy-container">
         <h1>Privacy Policy</h1>
         <p className="last-updated">Last Updated: November 10, 2024</p>

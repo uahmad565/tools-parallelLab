@@ -1,8 +1,16 @@
 import './About.css';
+import Seo from './Seo';
 
 function About() {
   return (
     <div className="about-container">
+      <Seo
+        title="About Parallel Lab Tools"
+        description="Learn about Parallel Lab Tools, including developer utilities and Azure practice simulator features."
+        path="/about"
+        keywords="about Parallel Lab Tools, Azure practice simulators, developer tools"
+      />
+
       <div className="about-hero">
         <div className="logo-container">
           <span className="logo-icon">🔨</span>
@@ -37,6 +45,22 @@ function About() {
                 <li>✅ Real-time SignalR progress</li>
                 <li>✅ Data annotations support</li>
                 <li>✅ Records & nullable types</li>
+              </ul>
+            </div>
+
+            <div className="tool-card">
+              <div className="tool-icon">🧠</div>
+              <h3>Azure Practice Simulators</h3>
+              <p>
+                Study AZ-305 and AZ-700 with dedicated practice routes, instant answer validation,
+                rationale review, and topic-based performance summaries.
+              </p>
+              <ul className="tool-features">
+                <li>✅ AZ-305 architecture practice</li>
+                <li>✅ AZ-700 networking practice</li>
+                <li>✅ Question-by-question feedback</li>
+                <li>✅ Topic scorecards</li>
+                <li>✅ No registration required</li>
               </ul>
             </div>
           </div>

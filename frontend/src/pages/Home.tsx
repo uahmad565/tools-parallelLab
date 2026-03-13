@@ -1,10 +1,18 @@
 import { Link } from 'react-router-dom';
 import AdSense from '../components/AdSense';
+import Seo from '../components/Seo';
 import './Home.css';
 
 function Home() {
   return (
     <div className="home-page">
+      <Seo
+        title="Parallel Lab Tools | Developer Utilities and Azure Practice Simulators"
+        description="Parallel Lab Tools offers developer productivity tools and Azure practice simulators, including CSV to C# generation plus AZ-305 and AZ-700 mock assessments."
+        path="/"
+        keywords="developer tools, CSV to C#, Azure practice simulator, AZ-305, AZ-700"
+      />
+
       <section className="hero-section">
         <div className="hero-content">
           <div className="hero-logo">🔨</div>
@@ -16,6 +24,9 @@ function Home() {
             </Link>
             <Link to="/csv-to-csharp" className="hero-btn secondary">
               Try CSV to C#
+            </Link>
+            <Link to="/practice-simulators" className="hero-btn secondary">
+              Practice AZ Exams
             </Link>
           </div>
         </div>
@@ -44,6 +55,11 @@ function Home() {
               <div className="feature-icon">🔓</div>
               <h3>Free Forever</h3>
               <p>No registration, no payment, no strings attached</p>
+            </div>
+            <div className="feature-card">
+              <div className="feature-icon">🧠</div>
+              <h3>Exam-Focused Practice</h3>
+              <p>Dedicated AZ-305 and AZ-700 simulator routes with instant feedback and topic summaries</p>
             </div>
           </div>
         </div>
@@ -77,6 +93,38 @@ function Home() {
           </div>
           <Link to="/csv-to-csharp" className="featured-button">
             Launch Tool →
+          </Link>
+        </div>
+      </section>
+
+      <section className="featured-tool-section">
+        <div className="featured-container">
+          <div className="featured-badge">New Feature</div>
+          <h2>🧭 Azure Practice Simulators</h2>
+          <p className="featured-description">
+            Study Azure architecture and networking with dedicated AZ-305 and AZ-700 practice routes that keep
+            explanations, answer checks, and topic scorecards in one flow.
+          </p>
+          <div className="featured-stats">
+            <div className="stat-item">
+              <div className="stat-value">2</div>
+              <div className="stat-label">Exam Routes</div>
+            </div>
+            <div className="stat-item">
+              <div className="stat-value">291</div>
+              <div className="stat-label">Question Pool</div>
+            </div>
+            <div className="stat-item">
+              <div className="stat-value">1</div>
+              <div className="stat-label">Answer Loop</div>
+            </div>
+            <div className="stat-item">
+              <div className="stat-value">6+</div>
+              <div className="stat-label">Topic Buckets</div>
+            </div>
+          </div>
+          <Link to="/practice-simulators" className="featured-button">
+            Explore Simulators →
           </Link>
         </div>
       </section>
