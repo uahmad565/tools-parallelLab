@@ -157,6 +157,7 @@ const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
   <url><loc>${absoluteUrl('/')}</loc></url>
   <url><loc>${absoluteUrl(practiceHub.route)}</loc></url>
 ${examPages.map((page) => `  <url><loc>${absoluteUrl(page.route)}</loc></url>`).join('\n')}
+  <url><loc>${absoluteUrl('/auth-flows-learning')}</loc></url>
 </urlset>
 `;
 
@@ -195,11 +196,42 @@ function renderNavbar(activeNav) {
       <span class="brand-name">ParallelLabTools</span>
     </a>
     <div class="navbar-menu">
-      <a href="/tools" class="nav-item">All Tools</a>
-      <a href="/practice-simulators" class="nav-item ${activeNav === 'practice' ? 'active' : ''}">Practice Exams</a>
-      <a href="/csv-to-csharp" class="nav-item">CSV to C#</a>
-      <a href="/about" class="nav-item">About</a>
-      <a href="/privacy" class="nav-item">Privacy</a>
+      <div class="nav-dropdown">
+        <button type="button" class="nav-dropdown-trigger">
+          <span>Tools</span>
+          <span class="nav-dropdown-chevron" aria-hidden="true">▾</span>
+        </button>
+        <div class="nav-dropdown-menu">
+          <a href="/tools" class="nav-dropdown-item">
+            <span class="nav-dropdown-item-title">All Tools</span>
+            <span class="nav-dropdown-item-description">Browse the full Parallel Lab Tools catalog.</span>
+          </a>
+          <a href="/csv-to-csharp" class="nav-dropdown-item">
+            <span class="nav-dropdown-item-title">CSV to C#</span>
+            <span class="nav-dropdown-item-description">Generate typed C# models from large CSV files.</span>
+          </a>
+        </div>
+      </div>
+      <div class="nav-dropdown ${activeNav === 'practice' || activeNav === 'auth-flows' ? 'active' : ''}">
+        <button type="button" class="nav-dropdown-trigger">
+          <span>Learning</span>
+          <span class="nav-dropdown-chevron" aria-hidden="true">▾</span>
+        </button>
+        <div class="nav-dropdown-menu">
+          <a href="/auth-flows-learning" class="nav-dropdown-item ${activeNav === 'auth-flows' ? 'active' : ''}">
+            <span class="nav-dropdown-item-title">Auth Flows</span>
+            <span class="nav-dropdown-item-description">Visual walkthroughs for OAuth, OIDC, and password login.</span>
+          </a>
+          <a href="/practice-simulators" class="nav-dropdown-item ${activeNav === 'practice' ? 'active' : ''}">
+            <span class="nav-dropdown-item-title">Practice Exams</span>
+            <span class="nav-dropdown-item-description">Dedicated Azure practice routes with answer feedback.</span>
+          </a>
+        </div>
+      </div>
+      <div class="navbar-links">
+        <a href="/about" class="nav-link">About</a>
+        <a href="/privacy" class="nav-link">Privacy</a>
+      </div>
     </div>
   </div>
 </nav>`.trim();

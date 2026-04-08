@@ -1,10 +1,11 @@
 .navbar {
-  background: white;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   position: sticky;
   top: 0;
   z-index: 1000;
-  border-bottom: 2px solid #f0f0f0;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 10px 34px rgba(15, 23, 42, 0.08);
+  border-bottom: 1px solid rgba(102, 126, 234, 0.12);
+  backdrop-filter: blur(18px);
 }
 
 .navbar-container {
@@ -14,6 +15,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 1.25rem;
 }
 
 .navbar-brand {
@@ -25,18 +27,25 @@
 }
 
 .navbar-brand:hover {
-  transform: scale(1.05);
+  transform: scale(1.03);
 }
 
 .brand-logo {
-  font-size: 2.5rem;
+  font-size: 2.35rem;
   animation: hammer-rotate 3s ease-in-out infinite;
 }
 
 @keyframes hammer-rotate {
-  0%, 100% { transform: rotate(0deg); }
-  25% { transform: rotate(-12deg); }
-  75% { transform: rotate(12deg); }
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-12deg);
+  }
+  75% {
+    transform: rotate(12deg);
+  }
 }
 
 .brand-name {
@@ -51,69 +60,238 @@
 
 .navbar-menu {
   display: flex;
-  gap: 0.5rem;
   align-items: center;
+  gap: 0.75rem;
 }
 
-.nav-item {
-  padding: 0.75rem 1.5rem;
-  text-decoration: none;
-  color: #555;
-  font-weight: 600;
-  font-size: 1.1rem;
-  border-radius: 8px;
-  transition: all 0.3s ease;
+.navbar-links {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.nav-dropdown {
   position: relative;
 }
 
-.nav-item:hover {
-  color: #667eea;
+.nav-dropdown::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  height: 0.8rem;
+}
+
+.nav-dropdown-trigger {
+  min-width: 138px;
+  padding: 0.85rem 1rem;
+  display: inline-flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.65rem;
+  border: 1px solid transparent;
+  border-radius: 14px;
+  background: transparent;
+  color: #4b5563;
+  font-size: 1rem;
+  font-weight: 700;
+  transition:
+    transform 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease,
+    background 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.nav-dropdown:hover .nav-dropdown-trigger,
+.nav-dropdown.open .nav-dropdown-trigger {
+  color: #4338ca;
+  background: #f8f9ff;
+  border-color: rgba(102, 126, 234, 0.14);
+}
+
+.nav-dropdown.active .nav-dropdown-trigger {
+  color: white;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-color: transparent;
+  box-shadow: 0 14px 26px rgba(102, 126, 234, 0.24);
+}
+
+.nav-dropdown.active:hover .nav-dropdown-trigger,
+.nav-dropdown.active.open .nav-dropdown-trigger {
+  color: white;
+}
+
+.nav-dropdown-chevron {
+  font-size: 0.74rem;
+  transition: transform 0.25s ease;
+}
+
+.nav-dropdown:hover .nav-dropdown-chevron,
+.nav-dropdown.open .nav-dropdown-chevron {
+  transform: rotate(180deg);
+}
+
+.nav-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 0.1rem);
+  right: 0;
+  min-width: 320px;
+  padding: 0.75rem;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.98);
+  border: 1px solid rgba(102, 126, 234, 0.12);
+  box-shadow: 0 24px 44px rgba(31, 41, 55, 0.16);
+  backdrop-filter: blur(16px);
+  opacity: 0;
+  transform: translateY(10px);
+  pointer-events: none;
+  transition: opacity 0.22s ease, transform 0.22s ease;
+}
+
+.nav-dropdown.open .nav-dropdown-menu,
+.nav-dropdown:hover .nav-dropdown-menu {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.nav-dropdown-item {
+  display: grid;
+  gap: 0.28rem;
+  padding: 0.95rem 1rem;
+  border-radius: 16px;
+  text-decoration: none;
+  transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.nav-dropdown-item:hover {
+  background: #f8f9ff;
+  transform: translateX(2px);
+}
+
+.nav-dropdown-item.active {
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.12), rgba(118, 75, 162, 0.08));
+  box-shadow: inset 0 0 0 1px rgba(102, 126, 234, 0.16);
+}
+
+.nav-dropdown-item + .nav-dropdown-item {
+  margin-top: 0.25rem;
+}
+
+.nav-dropdown-item-title {
+  color: #1f2937;
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+.nav-dropdown-item-description {
+  color: #6b7280;
+  font-size: 0.84rem;
+  line-height: 1.45;
+}
+
+.nav-link {
+  padding: 0.8rem 1rem;
+  border-radius: 12px;
+  color: #4b5563;
+  text-decoration: none;
+  font-size: 0.98rem;
+  font-weight: 700;
+  transition:
+    transform 0.25s ease,
+    color 0.25s ease,
+    background 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.nav-link:hover {
+  color: #4338ca;
   background: #f8f9ff;
 }
 
-.nav-item.active {
+.nav-link.active {
   color: white;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+  box-shadow: 0 12px 24px rgba(102, 126, 234, 0.22);
 }
 
-.nav-item.active::after {
-  content: '';
-  position: absolute;
-  bottom: -2px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 40%;
-  height: 3px;
-  background: white;
-  border-radius: 2px 2px 0 0;
-}
-
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .navbar-container {
     flex-direction: column;
-    gap: 1rem;
+    align-items: stretch;
     padding: 1rem;
+  }
+
+  .navbar-brand {
+    justify-content: center;
   }
 
   .navbar-menu {
     width: 100%;
-    flex-wrap: wrap;
-    justify-content: center;
+    flex-direction: column;
   }
 
-  .nav-item {
-    padding: 0.6rem 1rem;
-    font-size: 1rem;
+  .navbar-links {
+    width: 100%;
+    flex-direction: column;
+    gap: 0.55rem;
   }
 
+  .nav-dropdown {
+    width: 100%;
+  }
+
+  .nav-dropdown::after {
+    display: none;
+  }
+
+  .nav-dropdown-trigger {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .nav-link {
+    width: 100%;
+    text-align: center;
+  }
+
+  .nav-dropdown-menu {
+    position: static;
+    min-width: 0;
+    width: 100%;
+    margin-top: 0.55rem;
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+    display: none;
+    box-shadow: 0 12px 26px rgba(31, 41, 55, 0.1);
+  }
+
+  .nav-dropdown:hover .nav-dropdown-menu {
+    display: none;
+  }
+
+  .nav-dropdown.open .nav-dropdown-menu {
+    display: block;
+  }
+}
+
+@media (max-width: 640px) {
   .brand-name {
-    font-size: 1.5rem;
+    font-size: 1.45rem;
   }
 
   .brand-logo {
     font-size: 2rem;
   }
+
+  .nav-dropdown-trigger {
+    font-size: 0.96rem;
+  }
+
+  .nav-dropdown-item {
+    padding: 0.85rem 0.9rem;
+  }
 }
-
-

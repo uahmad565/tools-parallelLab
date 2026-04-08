@@ -47,6 +47,22 @@ const tools: Tool[] = [
     ]
   },
   {
+    id: 'auth-flows-learning',
+    name: 'Auth Flows Learning Studio',
+    description: 'Interactive visual walkthroughs for password login, OAuth 2.0, OpenID Connect, and client credentials with clear step-by-step explanations.',
+    icon: '🔐',
+    route: '/auth-flows-learning',
+    status: 'active',
+    features: [
+      'Password and OAuth flow comparison',
+      'OpenID Connect identity walkthrough',
+      'Client credentials machine-to-machine flow',
+      'Animated request direction cues',
+      'Token purpose breakdowns',
+      'No login required'
+    ]
+  },
+  {
     id: 'json-to-typescript',
     name: 'JSON to TypeScript',
     description: 'Generate TypeScript interfaces from JSON objects with support for nested types, arrays, and unions.',

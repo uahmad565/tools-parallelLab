@@ -22,6 +22,9 @@ function Home() {
             <Link to="/tools" className="hero-btn primary">
               Explore Tools
             </Link>
+            <Link to="/auth-flows-learning" className="hero-btn secondary">
+              Learn Auth Flows
+            </Link>
             <Link to="/csv-to-csharp" className="hero-btn secondary">
               Try CSV to C#
             </Link>
@@ -62,6 +65,39 @@ function Home() {
               <p>Dedicated AZ-305 and AZ-700 simulator routes with instant feedback and topic summaries</p>
             </div>
           </div>
+        </div>
+      </section>
+
+      <section className="featured-tool-section">
+        <div className="featured-container">
+          <div className="featured-badge">Learning Tool</div>
+          <h2>🔐 Auth Flows Learning Studio</h2>
+          <p className="featured-description">
+            Understand password auth, OAuth 2.0, OpenID Connect, and client credentials with a
+            visual step-by-step flow that shows where the browser, app server, and identity provider
+            each do work.
+          </p>
+          <div className="featured-stats">
+            <div className="stat-item">
+              <div className="stat-value">4</div>
+              <div className="stat-label">Auth Flows</div>
+            </div>
+            <div className="stat-item">
+              <div className="stat-value">1</div>
+              <div className="stat-label">Visual Timeline</div>
+            </div>
+            <div className="stat-item">
+              <div className="stat-value">3</div>
+              <div className="stat-label">Token Types</div>
+            </div>
+            <div className="stat-item">
+              <div className="stat-value">0</div>
+              <div className="stat-label">Login Needed</div>
+            </div>
+          </div>
+          <Link to="/auth-flows-learning" className="featured-button">
+            Open Learning Studio →
+          </Link>
         </div>
       </section>
 
